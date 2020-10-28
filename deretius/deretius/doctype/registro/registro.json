@@ -1,0 +1,133 @@
+{
+ "creation": "2020-10-28 13:29:33.178289",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sc_datos_registro",
+  "libro",
+  "n_expediente_centro",
+  "sc_dr1",
+  "folio",
+  "sc_dr2",
+  "n_orden",
+  "sc_datos_titulo",
+  "tipo_de_titulo",
+  "sc_titulo1",
+  "titulo",
+  "sc_datos_personales",
+  "n_doc",
+  "apellidos",
+  "nombre",
+  "email"
+ ],
+ "fields": [
+  {
+   "fieldname": "libro",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Libro",
+   "reqd": 1
+  },
+  {
+   "fieldname": "folio",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Folio",
+   "reqd": 1
+  },
+  {
+   "fieldname": "n_orden",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "N\u00ba orden",
+   "reqd": 1
+  },
+  {
+   "fieldname": "n_expediente_centro",
+   "fieldtype": "Int",
+   "label": "N\u00ba expediente centro"
+  },
+  {
+   "fieldname": "sc_datos_personales",
+   "fieldtype": "Section Break",
+   "label": "Datos personales"
+  },
+  {
+   "fieldname": "n_doc",
+   "fieldtype": "Data",
+   "label": "N\u00ba de documento de identidad"
+  },
+  {
+   "fieldname": "apellidos",
+   "fieldtype": "Data",
+   "label": "Apellidos"
+  },
+  {
+   "fieldname": "nombre",
+   "fieldtype": "Data",
+   "label": "Nombre"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "sc_datos_registro",
+   "fieldtype": "Section Break",
+   "label": "Datos de registro"
+  },
+  {
+   "fieldname": "sc_dr1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sc_dr2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sc_datos_titulo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tipo_de_titulo",
+   "fieldtype": "Link",
+   "label": "Tipo de t\u00edtulo",
+   "options": "Tipo de titulo"
+  },
+  {
+   "fieldname": "sc_titulo1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "titulo",
+   "fieldtype": "Link",
+   "label": "T\u00edtulo",
+   "options": "Titulo"
+  }
+ ],
+ "modified": "2020-10-28 13:51:03.022655",
+ "modified_by": "Administrator",
+ "module": "Deretius",
+ "name": "Registro",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

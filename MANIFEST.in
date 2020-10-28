@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include deretius *.css
+recursive-include deretius *.csv
+recursive-include deretius *.html
+recursive-include deretius *.ico
+recursive-include deretius *.js
+recursive-include deretius *.json
+recursive-include deretius *.md
+recursive-include deretius *.png
+recursive-include deretius *.py
+recursive-include deretius *.svg
+recursive-include deretius *.txt
+recursive-exclude deretius *.pyc
