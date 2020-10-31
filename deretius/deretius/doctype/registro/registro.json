@@ -4,22 +4,43 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "sc_datos_registro",
+  "ss_1",
   "libro",
-  "n_expediente_centro",
-  "sc_dr1",
   "folio",
-  "sc_dr2",
   "n_orden",
-  "sc_datos_titulo",
+  "sc_1_1",
+  "n_expediente_centro",
+  "n_registro_nacional_titulos",
+  "n_registro_universitario",
+  "n_registro_centro",
+  "sc_1_2",
+  "fecha_solicitud",
+  "fecha_remision_expediente",
+  "fecha_recepcion_titulo",
+  "fecha_abono_expedicion",
+  "ss2",
   "tipo_de_titulo",
-  "sc_titulo1",
+  "sc_2_1",
   "titulo",
-  "sc_datos_personales",
+  "ss_3",
   "n_doc",
   "apellidos",
+  "sc_3_1",
   "nombre",
-  "email"
+  "email",
+  "ss_4",
+  "fecha_retirada",
+  "envio",
+  "observaciones_envio",
+  "sc_4_1",
+  "documento_retirada",
+  "fecha_envio",
+  "ss_5",
+  "duplicado",
+  "documento_retirada_duplicado",
+  "sc_5_1",
+  "fecha_expedicion_duplicado",
+  "fecha_retirada_duplicado"
  ],
  "fields": [
   {
@@ -46,12 +67,7 @@
   {
    "fieldname": "n_expediente_centro",
    "fieldtype": "Int",
-   "label": "N\u00ba expediente centro"
-  },
-  {
-   "fieldname": "sc_datos_personales",
-   "fieldtype": "Section Break",
-   "label": "Datos personales"
+   "label": "N\u00ba Expediente Centro"
   },
   {
    "fieldname": "n_doc",
@@ -75,40 +91,154 @@
    "options": "Email"
   },
   {
-   "fieldname": "sc_datos_registro",
-   "fieldtype": "Section Break",
-   "label": "Datos de registro"
-  },
-  {
-   "fieldname": "sc_dr1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "sc_dr2",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "sc_datos_titulo",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "tipo_de_titulo",
    "fieldtype": "Link",
    "label": "Tipo de t\u00edtulo",
    "options": "Tipo de titulo"
   },
   {
-   "fieldname": "sc_titulo1",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "titulo",
    "fieldtype": "Link",
    "label": "T\u00edtulo",
    "options": "Titulo"
+  },
+  {
+   "fieldname": "ss_1",
+   "fieldtype": "Section Break",
+   "label": "Datos de registro"
+  },
+  {
+   "fieldname": "n_registro_nacional_titulos",
+   "fieldtype": "Data",
+   "label": "N\u00ba de Registro Nacional de T\u00edtulos"
+  },
+  {
+   "fieldname": "n_registro_universitario",
+   "fieldtype": "Data",
+   "label": "N\u00ba de Registro Universitario"
+  },
+  {
+   "fieldname": "n_registro_centro",
+   "fieldtype": "Data",
+   "label": "N\u00ba de Registro de Centro"
+  },
+  {
+   "default": "Today",
+   "fieldname": "fecha_solicitud",
+   "fieldtype": "Date",
+   "label": "Fecha de solicitud"
+  },
+  {
+   "fieldname": "fecha_remision_expediente",
+   "fieldtype": "Date",
+   "label": "Fecha de remisi\u00f3n de expediente"
+  },
+  {
+   "fieldname": "fecha_recepcion_titulo",
+   "fieldtype": "Date",
+   "label": "Fecha de recepci\u00f3n de t\u00edtulo"
+  },
+  {
+   "fieldname": "fecha_abono_expedicion",
+   "fieldtype": "Date",
+   "label": "Fecha de abono/expedici\u00f3n"
+  },
+  {
+   "fieldname": "ss2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ss_3",
+   "fieldtype": "Section Break",
+   "label": "Datos personales"
+  },
+  {
+   "fieldname": "ss_4",
+   "fieldtype": "Section Break",
+   "label": "Datos de retirada"
+  },
+  {
+   "fieldname": "fecha_retirada",
+   "fieldtype": "Date",
+   "label": "Fecha de retirada"
+  },
+  {
+   "fieldname": "documento_retirada",
+   "fieldtype": "Attach",
+   "label": "Documento retirada"
+  },
+  {
+   "default": "0",
+   "fieldname": "envio",
+   "fieldtype": "Check",
+   "label": "Env\u00edo"
+  },
+  {
+   "depends_on": "eval:doc.envio=='1'",
+   "fieldname": "fecha_envio",
+   "fieldtype": "Date",
+   "label": "Fecha de env\u00edo"
+  },
+  {
+   "fieldname": "sc_1_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sc_1_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sc_2_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sc_3_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "observaciones_envio",
+   "fieldtype": "Text",
+   "label": "Observaciones"
+  },
+  {
+   "fieldname": "sc_4_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.envio=='1'",
+   "fieldname": "ss_5",
+   "fieldtype": "Section Break",
+   "label": "Duplicado"
+  },
+  {
+   "default": "0",
+   "fieldname": "duplicado",
+   "fieldtype": "Check",
+   "label": "Duplicado"
+  },
+  {
+   "fieldname": "sc_5_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.duplicado=='1'",
+   "fieldname": "fecha_expedicion_duplicado",
+   "fieldtype": "Date",
+   "label": "Fecha de expedici\u00f3n de duplicado"
+  },
+  {
+   "depends_on": "eval:doc.duplicado=='1'",
+   "fieldname": "fecha_retirada_duplicado",
+   "fieldtype": "Date",
+   "label": "Fecha de retirada de duplicado"
+  },
+  {
+   "fieldname": "documento_retirada_duplicado",
+   "fieldtype": "Attach",
+   "label": "Documento de retirada de duplicado"
   }
  ],
- "modified": "2020-10-28 13:51:03.022655",
+ "modified": "2020-10-28 17:18:06.507049",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",
