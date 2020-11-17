@@ -1,0 +1,49 @@
+{
+ "creation": "2020-11-16 13:34:57.931990",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "libro",
+  "n_pag"
+ ],
+ "fields": [
+  {
+   "fieldname": "libro",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Libro",
+   "options": "Libro",
+   "reqd": 1
+  },
+  {
+   "fieldname": "n_pag",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "N\u00famero de p\u00e1gina",
+   "reqd": 1
+  }
+ ],
+ "modified": "2020-11-16 13:34:57.931990",
+ "modified_by": "Administrator",
+ "module": "Deretius",
+ "name": "Pagina",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

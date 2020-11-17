@@ -1,0 +1,7 @@
+{
+    "js/custom.js": [
+        "public/js/helper.js",
+        "public/js/util.js",
+        "public/js/print.js"
+    ]
+}

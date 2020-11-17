@@ -1,4 +1,5 @@
 {
+ "allow_import": 1,
  "autoname": "field:tipo",
  "creation": "2020-10-27 13:39:55.461115",
  "doctype": "DocType",
@@ -28,7 +29,7 @@
    "read_only": 1
   }
  ],
- "modified": "2020-10-28 13:08:03.891500",
+ "modified": "2020-11-16 11:17:00.795228",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Tipo de titulo",
@@ -43,6 +44,18 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Registrador de titulos",
    "share": 1,
    "write": 1
   }

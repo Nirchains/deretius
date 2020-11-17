@@ -1,0 +1,53 @@
+{
+ "creation": "2020-11-16 13:30:45.203512",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ordinal",
+  "romano",
+  "curso_academico"
+ ],
+ "fields": [
+  {
+   "fieldname": "ordinal",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Ordinal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "romano",
+   "fieldtype": "Data",
+   "label": "Romano",
+   "read_only": 1
+  },
+  {
+   "fieldname": "curso_academico",
+   "fieldtype": "Data",
+   "label": "Curso acad\u00e9mico"
+  }
+ ],
+ "modified": "2020-11-16 14:13:01.319680",
+ "modified_by": "Administrator",
+ "module": "Deretius",
+ "name": "Libro",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

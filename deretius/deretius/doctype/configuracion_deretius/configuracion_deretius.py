@@ -6,6 +6,5 @@ from __future__ import unicode_literals
 # import frappe
 from frappe.model.document import Document
 
-class Titulo(Document):
-	def autoname(self):
-		self.name = "{0} en {1}".format(self.tipo, self.titulo)
+class ConfiguracionDeretius(Document):
+	pass
