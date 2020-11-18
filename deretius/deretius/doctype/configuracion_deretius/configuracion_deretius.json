@@ -6,7 +6,9 @@
  "field_order": [
   "libro_predeterminado",
   "pagina_predeterminada",
-  "n_orden_siguiente"
+  "n_orden_siguiente",
+  "ss_1",
+  "incidencias"
  ],
  "fields": [
   {
@@ -25,10 +27,21 @@
    "fieldname": "n_orden_siguiente",
    "fieldtype": "Int",
    "label": "N\u00ba de orden siguiente"
+  },
+  {
+   "fieldname": "ss_1",
+   "fieldtype": "Section Break",
+   "label": "Plantilla de incidencias"
+  },
+  {
+   "fieldname": "incidencias",
+   "fieldtype": "Table",
+   "label": "Incidencias",
+   "options": "Incidencias"
   }
  ],
  "issingle": 1,
- "modified": "2020-11-16 18:33:43.938453",
+ "modified": "2020-11-18 06:16:00.139297",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Configuracion Deretius",

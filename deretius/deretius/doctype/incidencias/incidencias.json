@@ -1,0 +1,54 @@
+{
+ "creation": "2020-11-18 06:08:07.381625",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "incidencia",
+  "incidencia_check",
+  "fecha",
+  "observaciones"
+ ],
+ "fields": [
+  {
+   "fieldname": "incidencia",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Incidencia"
+  },
+  {
+   "default": "0",
+   "fieldname": "incidencia_check",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Verificaci\u00f3n"
+  },
+  {
+   "fieldname": "observaciones",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Observaciones"
+  },
+  {
+   "fieldname": "fecha",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fecha"
+  }
+ ],
+ "istable": 1,
+ "modified": "2020-11-18 06:21:14.548009",
+ "modified_by": "Administrator",
+ "module": "Deretius",
+ "name": "Incidencias",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

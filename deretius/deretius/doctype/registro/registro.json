@@ -14,7 +14,6 @@
   "n_expediente_centro",
   "n_registro_nacional_titulos",
   "n_registro_universitario",
-  "n_registro_centro",
   "sc_1_2",
   "fecha_solicitud",
   "fecha_abono_expedicion",
@@ -43,7 +42,9 @@
   "documento_retirada_duplicado",
   "sc_5_1",
   "fecha_expedicion_duplicado",
-  "fecha_retirada_duplicado"
+  "fecha_retirada_duplicado",
+  "ss_6",
+  "incidencias"
  ],
  "fields": [
   {
@@ -74,8 +75,7 @@
    "in_standard_filter": 1,
    "label": "Libro",
    "options": "Libro",
-   "reqd": 1,
-   "set_only_once": 1
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -84,8 +84,8 @@
    "in_standard_filter": 1,
    "label": "P\u00e1gina",
    "options": "Pagina",
-   "reqd": 1,
-   "set_only_once": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "columns": 1,
@@ -93,8 +93,8 @@
    "fieldtype": "Int",
    "in_standard_filter": 1,
    "label": "N\u00ba orden",
-   "reqd": 1,
-   "set_only_once": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "sc_1_1",
@@ -114,11 +114,6 @@
    "fieldname": "n_registro_universitario",
    "fieldtype": "Data",
    "label": "N\u00ba de Registro Universitario"
-  },
-  {
-   "fieldname": "n_registro_centro",
-   "fieldtype": "Data",
-   "label": "N\u00ba de Registro de Centro"
   },
   {
    "fieldname": "sc_1_2",
@@ -220,7 +215,8 @@
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Email",
-   "options": "Email"
+   "options": "Email",
+   "reqd": 1
   },
   {
    "fieldname": "ss_4",
@@ -295,9 +291,20 @@
    "fieldname": "fecha_retirada_duplicado",
    "fieldtype": "Date",
    "label": "Fecha de retirada de duplicado"
+  },
+  {
+   "fieldname": "ss_6",
+   "fieldtype": "Section Break",
+   "label": "Incidencias"
+  },
+  {
+   "fieldname": "incidencias",
+   "fieldtype": "Table",
+   "label": "Incidencias",
+   "options": "Incidencias"
   }
  ],
- "modified": "2020-11-17 11:51:11.831372",
+ "modified": "2020-11-18 06:37:58.082488",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",

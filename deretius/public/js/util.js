@@ -54,5 +54,22 @@ $.extend(util, {
 		    	$(this).attr('title', $(this).val());
 		  	}
 		);
+	},
+	load_incidencias_template: function(frm, destin_table) {
+		frappe.model.clear_table(frm.doc, destin_table);
+			frappe.call({
+				method: "deretius.deretius.util.load_incidencias_template",
+				callback: function(r) {
+					if(r.message) {
+						$.each(r.message, function(i, item) {
+							var d = frappe.model.add_child(frm.doc, "Incidencias", destin_table);
+							console.log(item);
+							console.log(d);
+							frappe.model.set_value(d.doctype, d.name, "incidencia", item.incidencia);
+						});
+					}
+					refresh_field(destin_table);
+				}
+			});
 	}
 });
