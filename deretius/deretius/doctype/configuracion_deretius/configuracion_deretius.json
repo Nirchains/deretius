@@ -6,7 +6,9 @@
  "field_order": [
   "libro_predeterminado",
   "pagina_predeterminada",
+  "sc_1",
   "n_orden_siguiente",
+  "n_reg_pagina",
   "ss_1",
   "incidencias"
  ],
@@ -14,19 +16,26 @@
   {
    "fieldname": "libro_predeterminado",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Libro predeterminado",
-   "options": "Libro"
+   "options": "Libro",
+   "reqd": 1
   },
   {
    "fieldname": "pagina_predeterminada",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "P\u00e1gina predeterminada",
-   "options": "Pagina"
+   "options": "Pagina",
+   "reqd": 1
   },
   {
+   "default": "1",
    "fieldname": "n_orden_siguiente",
    "fieldtype": "Int",
-   "label": "N\u00ba de orden siguiente"
+   "in_list_view": 1,
+   "label": "N\u00ba de orden siguiente",
+   "reqd": 1
   },
   {
    "fieldname": "ss_1",
@@ -38,10 +47,22 @@
    "fieldtype": "Table",
    "label": "Incidencias",
    "options": "Incidencias"
+  },
+  {
+   "fieldname": "sc_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "20",
+   "fieldname": "n_reg_pagina",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "N\u00ba de registros por p\u00e1gina",
+   "reqd": 1
   }
  ],
  "issingle": 1,
- "modified": "2020-11-18 06:16:00.139297",
+ "modified": "2020-11-18 11:12:17.170676",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Configuracion Deretius",

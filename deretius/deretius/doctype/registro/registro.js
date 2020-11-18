@@ -5,23 +5,11 @@ cur_frm.add_fetch("titulo", "tipo", "tipo_de_titulo");
 
 frappe.ui.form.on('Registro', {
 	refresh: function(frm) {
-		if(frm.doc.__islocal) {           
-			frappe.call({
-				doc: frm.doc,
-				method: "set_default_registro",
-				callback: function(r) {
-					if (!helper.IsNullOrEmpty(r.message)) {
-						util.set_value_if_no_null(frm, "libro", r.message.libro_predeterminado);
-						util.set_value_if_no_null(frm, "pagina", r.message.pagina_predeterminada);
-						util.set_value_if_no_null(frm, "n_orden", r.message.n_orden_siguiente);
-					}
-				}
-			});
-            util.set_value_if_no_null(frm, "estado_num", 0);
-            
-            util.load_incidencias_template(frm, "incidencias");
+		if(frm.doc.__islocal) { 
+            //Cargamos los parámetros por defecto       
+            cur_frm.cscript.registro.set_defaults(frm);
 		}
-		cur_frm.cscript.registro.check_properties(frm);
+        cur_frm.cscript.registro.check_properties(frm);
 	},
 	onload: function(frm) {
 		frm.set_query("titulo", function() {
@@ -116,5 +104,17 @@ cur_frm.cscript.registro = {
 		util.toggle_display_and_required(frm, "n_registro_universitario", frm.doc.estado_num > 1);
 		//Estado Recepción del título
 		frm.toggle_display("ss_4", frm.doc.estado_num > 3);
+    },
+    set_defaults: function(frm) {
+        util.set_value_if_no_null(frm, "estado_num", 0);       
+        util.load_incidencias_template(frm, "incidencias");
+        frm.set_value("libro", "");
+        frm.set_value("pagina", "");
+        frm.set_value("n_orden", "");
+        frm.set_value("fecha_solicitud", frappe.datetime.get_today());
+        frm.set_value("fecha_abono_expedicion", frappe.datetime.get_today());
+        frm.set_value("fecha_remision_expediente", "");
+        frm.set_value("fecha_recepcion_titulo", "");
+		frm.refresh_fields();
 	}
 };

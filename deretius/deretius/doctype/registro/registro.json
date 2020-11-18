@@ -84,8 +84,7 @@
    "in_standard_filter": 1,
    "label": "P\u00e1gina",
    "options": "Pagina",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -93,8 +92,7 @@
    "fieldtype": "Int",
    "in_standard_filter": 1,
    "label": "N\u00ba orden",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "sc_1_1",
@@ -120,7 +118,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Today",
    "fieldname": "fecha_solicitud",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -129,9 +126,9 @@
    "reqd": 1
   },
   {
-   "default": "Today",
    "fieldname": "fecha_abono_expedicion",
    "fieldtype": "Date",
+   "in_standard_filter": 1,
    "label": "Fecha de abono/expedici\u00f3n"
   },
   {
@@ -143,6 +140,7 @@
   {
    "fieldname": "fecha_recepcion_titulo",
    "fieldtype": "Date",
+   "in_standard_filter": 1,
    "label": "Fecha de recepci\u00f3n de t\u00edtulo"
   },
   {
@@ -304,7 +302,7 @@
    "options": "Incidencias"
   }
  ],
- "modified": "2020-11-18 06:37:58.082488",
+ "modified": "2020-11-18 12:09:44.492186",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",
