@@ -11,6 +11,8 @@ app_color = "grey"
 app_email = "pedro@hispalisdigital.com"
 app_license = "MIT"
 
+app_logo_url = "/assets/deretius/images/home.png"
+
 # Includes in <head>
 # ------------------
 

@@ -258,9 +258,9 @@
    "label": "Fecha de env\u00edo"
   },
   {
-   "depends_on": "eval:doc.envio=='1'",
    "fieldname": "ss_5",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Duplicado"
   },
   {
@@ -302,7 +302,7 @@
    "options": "Incidencias"
   }
  ],
- "modified": "2020-11-18 12:09:44.492186",
+ "modified": "2020-11-25 10:21:35.013380",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",
@@ -329,6 +329,18 @@
    "read": 1,
    "report": 1,
    "role": "Registrador de titulos",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrador Deretius",
    "share": 1,
    "write": 1
   }

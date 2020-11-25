@@ -9,6 +9,13 @@ frappe.ui.form.on('Registro', {
             //Cargamos los parámetros por defecto       
             cur_frm.cscript.registro.set_defaults(frm);
 		}
+		if (frm.doc.estado_num == 5) {
+			frm.add_custom_button(__("Expedir duplicado"),
+				function() {
+					frm.copy_doc();
+				}
+			);
+		}
         cur_frm.cscript.registro.check_properties(frm);
 	},
 	onload: function(frm) {
@@ -26,70 +33,18 @@ frappe.ui.form.on('Registro', {
 		var lang_code = "ES";
 		var printit = true;
 		//print.pdf(format, with_letterhead, lang_code, printit);
-		print.html(format, with_letterhead, lang_code, printit);
+		print.html(format, with_letterhead, lang_code, printit);	
 	},
-	after_workflow_action: function(frm, cdt, cdn){	
-		if (frm.doc.estado_num == 4); {
-			new frappe.views.CommunicationComposer({
-				doc: frm.doc,
-				frm: frm,
-				subject: __(frm.meta.name) + ': ' + frm.docname,
-				recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
-				attach_document_print: true,
-				message: "",
-				email_template: "Título preparado para recogida",
-				real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
-			});
-		}
-		
-		//if (frm.doc.estado && frm.doc.estado == "Remision de expediente"){
-			return false;
-			console.log("estado:" + frm.doc.estado);
-			frappe.prompt([
-				{
-					fieldtype: 'Small Text',
-					reqd: true,
-					fieldname: 'reason'
-				}],
-				function(args){
-					validated = true;
-					frappe.call({
-						method: 'frappe.core.doctype.communication.email.make',
-						args: {
-							doctype: frm.doctype,
-							name: frm.docname,
-							subject: format(__('Reason for {0}'), [frm.doc.workflow_state]),
-							content: args.reason,
-							send_mail: false,
-							send_me_a_copy: false,
-							communication_medium: 'Other',
-							sent_or_received: 'Sent'
-						},
-						callback: function(res){
-							if (res && !res.exc){
-								frappe.call({
-									method: 'frappe.client.set_value',
-									args: {
-										doctype: frm.doctype,
-										name: frm.docname,
-										fieldname: 'rejection_reason',
-										value: frm.doc.rejection_reason ?
-											[frm.doc.rejection_reason, frm.doc.workflow_state].join('\n') : frm.doc.workflow_state
-									},
-									callback: function(res){
-										if (res && !res.exc){
-											frm.reload_doc();
-										}
-									}
-								});
-							}
-						}
-					});
-				},
-				__('Reason for ') + __(frm.doc.workflow_state),
-				__('End as Rejected')
-			)
-		//}
+	before_workflow_action: function(frm) {
+		/*return new Promise(resolve => {
+			frappe.confirm(__("Permanently Submit?"), function() {
+				resolve(me);
+			}, 
+			() => cur_frm.cscript.registro.cancelar_estado(frm));
+		});*/			
+	},
+	after_workflow_action: function(frm, cdt, cdn) {
+		cur_frm.cscript.registro.enviar_email(frm);
 	}
 });
 
@@ -97,11 +52,11 @@ frappe.ui.form.on('Registro', {
 cur_frm.cscript.registro = {
 	check_properties: function(frm) {
 		//Estado solicitado
-		util.toggle_display_and_required(frm, "fecha_remision_expediente", frm.doc.estado_num > 0);
+		util.toggle_display(frm, "fecha_remision_expediente", frm.doc.estado_num > 0);
 		//Estado remisión de expediente
-		util.toggle_display_and_required(frm, "fecha_recepcion_titulo", frm.doc.estado_num > 1);
-		util.toggle_display_and_required(frm, "n_registro_nacional_titulos", frm.doc.estado_num > 1);
-		util.toggle_display_and_required(frm, "n_registro_universitario", frm.doc.estado_num > 1);
+		util.toggle_display(frm, "fecha_recepcion_titulo", frm.doc.estado_num > 1);
+		util.toggle_display(frm, "n_registro_nacional_titulos", frm.doc.estado_num > 1);
+		util.toggle_display(frm, "n_registro_universitario", frm.doc.estado_num > 1);
 		//Estado Recepción del título
 		frm.toggle_display("ss_4", frm.doc.estado_num > 3);
     },
@@ -116,5 +71,25 @@ cur_frm.cscript.registro = {
         frm.set_value("fecha_remision_expediente", "");
         frm.set_value("fecha_recepcion_titulo", "");
 		frm.refresh_fields();
+	},
+	enviar_email: function(frm){
+		var d;	
+		if (frm.doc.estado_num == 4) {
+			var args = {
+				doc: frm.doc,
+				frm: frm,
+				subject: __(frm.meta.name) + ': ' + frm.docname,
+				recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
+				attach_document_print: false,
+				message: "",
+				email_template: "Título preparado para recogida",
+				real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
+			}
+			d = new frappe.views.CommunicationComposer(args);
+		}
+		return d;
+	},
+	cancelar_estado: function(frm) {
+
 	}
 };

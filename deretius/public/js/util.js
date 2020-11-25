@@ -39,6 +39,10 @@ $.extend(util, {
 		frm.toggle_reqd(name, condition);
 	},
 
+	toggle_display: function(frm,name,condition) {
+		frm.toggle_display(name, condition);
+	},
+
 	toggle_enable_and_required: function(frm,name,condition) {
 		frm.toggle_enable(name, condition);
 		frm.toggle_reqd(name, condition);
