@@ -75,5 +75,24 @@ $.extend(util, {
 					refresh_field(destin_table);
 				}
 			});
+	},
+	import_template_documents: function(frm, origin_table, destin_table) {
+		frappe.model.clear_table(frm.doc, destin_table);
+			frappe.call({
+				method: "deretius.deretius.util.load_repository_template",
+				args: {
+					"parentfield": origin_table
+				},
+				callback: function(r) {
+					if(r.message) {
+						console.log(r.message);
+						$.each(r.message, function(i, item) {
+							var d = frappe.model.add_child(frm.doc, "Repositorio", destin_table);
+							frappe.model.set_value(d.doctype, d.name, "type", item.type);
+						});
+					}
+					refresh_field(destin_table);
+				}
+			});
 	}
 });

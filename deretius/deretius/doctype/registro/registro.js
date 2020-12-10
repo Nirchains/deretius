@@ -12,7 +12,13 @@ frappe.ui.form.on('Registro', {
 		if (frm.doc.estado_num == 5) {
 			frm.add_custom_button(__("Expedir duplicado"),
 				function() {
-					frm.copy_doc();
+					var me = frm;
+					var fn = function(newdoc) {
+						newdoc.amended_from_copy = me.docname;
+						if (me.fields_dict && me.fields_dict['amendment_date'])
+							newdoc.amendment_date = frappe.datetime.obj_to_str(new Date());
+					};
+					cur_frm.cscript.registro.copy_doc(fn, 1, me.docname, frm);
 				}
 			);
 		}
@@ -58,7 +64,7 @@ cur_frm.cscript.registro = {
 		util.toggle_display(frm, "n_registro_nacional_titulos", frm.doc.estado_num > 1);
 		util.toggle_display(frm, "n_registro_universitario", frm.doc.estado_num > 1);
 		//Estado Recepción del título
-		frm.toggle_display("ss_4", frm.doc.estado_num > 3);
+		//frm.toggle_display("ss_4", frm.doc.estado_num > 3);
     },
     set_defaults: function(frm) {
         util.set_value_if_no_null(frm, "estado_num", 0);       
@@ -71,6 +77,7 @@ cur_frm.cscript.registro = {
         frm.set_value("fecha_remision_expediente", "");
         frm.set_value("fecha_recepcion_titulo", "");
 		frm.refresh_fields();
+		util.import_template_documents(frm, "documentacion", "documentacion");
 	},
 	enviar_email: function(frm){
 		var d;	
@@ -91,5 +98,30 @@ cur_frm.cscript.registro = {
 	},
 	cancelar_estado: function(frm) {
 
+	},
+	copy_doc(onload, from_amend, amended_from_copy, frm) {
+		frm.validate_form_action("Create");
+		var newdoc = frappe.model.copy_doc(frm.doc, from_amend);
+
+		newdoc.idx = null;
+		newdoc.__run_link_triggers = false;
+		if(onload) {
+			onload(newdoc);
+		}
+		
+		//Campos reiniciados
+		newdoc.duplicado = 1;
+		newdoc.libro = null;
+        newdoc.pagina = null;
+		newdoc.n_orden = null;
+		newdoc.fecha_remision_expediente = null;
+		newdoc.fecha_recepcion_titulo = null;
+		newdoc.fecha_retirada = null;
+		newdoc.observaciones_envio = null;
+		newdoc.documento_retirada = null;
+		newdoc.envio = null;
+		newdoc.fecha_envio = null;
+
+		frappe.set_route('Form', newdoc.doctype, newdoc.name);
 	}
 };

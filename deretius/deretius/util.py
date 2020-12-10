@@ -42,3 +42,21 @@ def load_incidencias_template():
 		raise e
 	
 	return plantilla
+
+@frappe.whitelist()
+#Carga plantilla del repositorio de ficheros
+def load_repository_template(parentfield):
+	
+	plantilla = []
+
+	try:
+		plantilla = frappe.get_list("Repositorio", 
+								filters={'parent': 'Configuracion Deretius',
+										'parenttype': 'Configuracion Deretius',
+										'parentfield': parentfield },
+								fields="*")
+	except Exception as e:
+		frappe.msgprint(_("No se ha podido obtener la plantilla"))
+		raise e
+	
+	return plantilla
