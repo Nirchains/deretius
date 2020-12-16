@@ -10,6 +10,7 @@ class Registro(Document):
     def autoname(self):
         self.set_default_registro()
         self.name = self.get_name(self.pagina, self.n_orden)
+        self.codigo = self.name
     
     def before_insert(self):
         self.set_default_registro()

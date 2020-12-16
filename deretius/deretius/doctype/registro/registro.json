@@ -4,19 +4,22 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "ss_d",
+  "ss_duplicado",
   "amended_from_copy",
   "vinculo_boe",
   "fecha_anuncio_boe",
   "sc_0",
   "motivo",
   "duplicado",
+  "referencia_boe",
+  "importe",
   "ss_1",
   "estado",
   "estado_num",
   "libro",
   "pagina",
   "n_orden",
+  "codigo",
   "sc_1_1",
   "n_expediente_centro",
   "n_registro_nacional_titulos",
@@ -36,14 +39,15 @@
   "sc_3_1",
   "nombre",
   "email",
-  "ss_4",
+  "ss_retirada",
   "fecha_retirada",
-  "envio",
-  "observaciones_envio",
+  "documento_retirada",
   "sc_4_1",
   "imprimir_documento",
-  "documento_retirada",
+  "envio",
   "fecha_envio",
+  "sc_4_2",
+  "observaciones_envio",
   "ss_6",
   "documentacion",
   "ss_7",
@@ -57,10 +61,11 @@
   },
   {
    "fieldname": "estado",
-   "fieldtype": "Data",
+   "fieldtype": "Select",
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Estado",
+   "options": "\nPendiente\nSolicitado\nRemision de expediente\nRecepcion del titulo\nTitulo retirado",
    "read_only": 1
   },
   {
@@ -102,9 +107,13 @@
    "fieldtype": "Column Break"
   },
   {
+   "columns": 1,
    "fieldname": "n_expediente_centro",
    "fieldtype": "Int",
-   "label": "N\u00ba Expediente Centro"
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "N\u00ba Expediente Centro",
+   "reqd": 1
   },
   {
    "fieldname": "n_registro_nacional_titulos",
@@ -121,6 +130,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "bold": 1,
    "fieldname": "fecha_solicitud",
    "fieldtype": "Date",
    "in_list_view": 1,
@@ -129,6 +139,7 @@
    "reqd": 1
   },
   {
+   "bold": 1,
    "fieldname": "fecha_abono_expedicion",
    "fieldtype": "Date",
    "in_standard_filter": 1,
@@ -220,11 +231,6 @@
    "reqd": 1
   },
   {
-   "fieldname": "ss_4",
-   "fieldtype": "Section Break",
-   "label": "Datos de retirada"
-  },
-  {
    "fieldname": "fecha_retirada",
    "fieldtype": "Date",
    "label": "Fecha de retirada",
@@ -238,7 +244,7 @@
   },
   {
    "fieldname": "observaciones_envio",
-   "fieldtype": "Text",
+   "fieldtype": "Small Text",
    "label": "Observaciones"
   },
   {
@@ -248,7 +254,7 @@
   {
    "fieldname": "imprimir_documento",
    "fieldtype": "Button",
-   "label": "Imprimir documento"
+   "label": "Imprimir documento de retirada"
   },
   {
    "fieldname": "documento_retirada",
@@ -302,12 +308,6 @@
    "read_only": 1
   },
   {
-   "collapsible_depends_on": "eval:doc.duplicado==1",
-   "fieldname": "ss_d",
-   "fieldtype": "Section Break",
-   "label": "Duplicado"
-  },
-  {
    "fieldname": "sc_0",
    "fieldtype": "Column Break"
   },
@@ -326,9 +326,39 @@
    "fieldname": "fecha_anuncio_boe",
    "fieldtype": "Date",
    "label": "Fecha anuncio BOE"
+  },
+  {
+   "fieldname": "referencia_boe",
+   "fieldtype": "Data",
+   "label": "Referencia BOE"
+  },
+  {
+   "fieldname": "importe",
+   "fieldtype": "Data",
+   "label": "Importe"
+  },
+  {
+   "fieldname": "ss_duplicado",
+   "fieldtype": "Section Break",
+   "label": "Duplicado"
+  },
+  {
+   "fieldname": "sc_4_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ss_retirada",
+   "fieldtype": "Section Break",
+   "label": "Datos de retirada"
+  },
+  {
+   "fieldname": "codigo",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "C\u00f3digo"
   }
  ],
- "modified": "2020-12-10 03:02:42.211421",
+ "modified": "2020-12-11 16:51:21.118860",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",
@@ -373,5 +403,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "codigo",
  "track_changes": 1
 }
