@@ -1,10 +1,11 @@
 frappe.provide("print");
 
 $.extend(print, {
-	pdf: function(format, with_letterhead, lang_code, printit) {
-		var w = window.open(frappe.urllib.get_full_url("/api/method/frappe.utils.print_format.download_pdf?"
+	pdf: function(format, with_letterhead, lang_code, printit, name_concat) {
+		var w = window.open(frappe.urllib.get_full_url("/api/method/frappe_backend.utils.print_format.download_pdf?"
 			+ "doctype=" + encodeURIComponent(cur_frm.doc.doctype)
 			+ "&name=" + encodeURIComponent(cur_frm.doc.name)
+			+ "&name_concat=" + name_concat
 			+ (printit ? "&trigger_print=1" : "")
 			+ "&format=" + format
 			+ "&no_letterhead=" + (with_letterhead ? "0" : "1")

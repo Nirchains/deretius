@@ -30,7 +30,8 @@ frappe.ui.form.on('Registro', {
 		var with_letterhead = true;
 		var lang_code = "ES";
 		var printit = true;
-		print.pdf(format, with_letterhead, lang_code, printit);
+		var name_concat = "retirada";
+		print.pdf(format, with_letterhead, lang_code, printit, name_concat);
 		//print.html(format, with_letterhead, lang_code, printit);	
 	},
 	before_workflow_action: function(frm) {
@@ -42,7 +43,7 @@ frappe.ui.form.on('Registro', {
 		});*/			
 	},
 	after_workflow_action: function(frm, cdt, cdn) {
-		//cur_frm.cscript.registro.enviar_email(frm);
+		cur_frm.cscript.registro.acciones_flujo(frm);
 	}
 });
 
@@ -78,19 +79,24 @@ cur_frm.cscript.registro = {
 		frm.refresh_fields();
 		util.import_template_documents(frm, "documentacion", "documentacion");
 	},
-	enviar_email: function(frm){
+	enviar_email_titulo_preparado: function(frm){
 		var d;	
 		var args = {
 			doc: frm.doc,
 			frm: frm,
-			subject: __(frm.meta.name) + ': ' + frm.docname,
+			//subject: __(frm.meta.name) + ': ' + frm.docname,
+			subject: "asdf",
 			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
 			attach_document_print: false,
 			message: "",
-			email_template: "Título preparado para recogida",
+			email_template: "1-Titulo preparado para recogida",
 			real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
 		}
 		d = new frappe.views.CommunicationComposer(args);
+
+		console.log(d);
+		d.dialog.fields_dict.email_template.set_value(d.email_template || '');
+		d.setup_email_template();
 		
 		return d;
 	},
@@ -171,7 +177,7 @@ cur_frm.cscript.registro = {
 
 				frm.add_custom_button(__("Enviar correo título preparado"),
 					function() {
-						cur_frm.cscript.registro.enviar_email(frm);
+						cur_frm.cscript.registro.enviar_email_titulo_preparado(frm);
 					}
 				);
 
@@ -189,6 +195,32 @@ cur_frm.cscript.registro = {
 					}
 				);
 				break;
+		}
+		
+	},
+	acciones_flujo: function(frm) {
+		switch (frm.doc.estado_num) {
+			case 0:
+				//Pendiente
+				
+				break;
+			case 1:
+				//Solicitado
+				
+				break;
+
+			case 2:
+				//Remision de expediente
+				
+				break;
+			case 3:
+				//Recepcion del titulo
+				this.enviar_email_titulo_preparado(frm);
+				break;
+			case 5:
+				//Titulo retirado
+				
+				break;
 				
 		}
 	},
@@ -199,7 +231,8 @@ cur_frm.cscript.registro = {
 				var with_letterhead = true;
 				var lang_code = "ES";
 				var printit = true;
-				print.pdf(format, with_letterhead, lang_code, printit);
+				var name_concat = "resguardo";
+				print.pdf(format, with_letterhead, lang_code, printit, name_concat);
 				//print.html(format, with_letterhead, lang_code, printit);
 			}
 		);
