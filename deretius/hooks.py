@@ -22,6 +22,8 @@ app_include_js = [
 	"/assets/js/custom.js"
 ]
 
+fixtures = ["Print Format", "Workflow State", "Workflow", "Email Template"]
+
 # include js, css files in header of web template
 # web_include_css = "/assets/deretius/css/deretius.css"
 # web_include_js = "/assets/deretius/js/deretius.js"
@@ -94,13 +96,13 @@ app_include_js = [
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"deretius.tasks.all"
 # 	],
-# 	"daily": [
-# 		"deretius.tasks.daily"
-# 	],
+ 	"daily": [
+ 		"deretius.deretius.doctype.registro.registro.comprobar_libro"
+ 	]
 # 	"hourly": [
 # 		"deretius.tasks.hourly"
 # 	],
@@ -110,7 +112,7 @@ app_include_js = [
 # 	"monthly": [
 # 		"deretius.tasks.monthly"
 # 	]
-# }
+}
 
 # Testing
 # -------

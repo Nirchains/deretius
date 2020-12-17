@@ -35,12 +35,15 @@ frappe.ui.form.on('Registro', {
 		//print.html(format, with_letterhead, lang_code, printit);	
 	},
 	before_workflow_action: function(frm) {
-		/*return new Promise(resolve => {
-			frappe.confirm(__("Permanently Submit?"), function() {
-				resolve(me);
-			}, 
-			() => cur_frm.cscript.registro.cancelar_estado(frm));
-		});*/			
+		if (frm.selected_workflow_action == "Reiniciar estado") {
+			//Pendiente
+			return new Promise(resolve => {
+				frappe.confirm(__("¿Está seguro de que desea reiniciar el estado de la solicitud a Pendiente?"), function() {
+					resolve(me);
+				}, 
+				() => cur_frm.cscript.registro.cancelar_estado(frm));
+			});				
+		}		
 	},
 	after_workflow_action: function(frm, cdt, cdn) {
 		cur_frm.cscript.registro.acciones_flujo(frm);
@@ -79,27 +82,7 @@ cur_frm.cscript.registro = {
 		frm.refresh_fields();
 		util.import_template_documents(frm, "documentacion", "documentacion");
 	},
-	enviar_email_titulo_preparado: function(frm){
-		var d;	
-		var args = {
-			doc: frm.doc,
-			frm: frm,
-			//subject: __(frm.meta.name) + ': ' + frm.docname,
-			subject: "asdf",
-			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
-			attach_document_print: false,
-			message: "",
-			email_template: "1-Titulo preparado para recogida",
-			real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
-		}
-		d = new frappe.views.CommunicationComposer(args);
-
-		console.log(d);
-		d.dialog.fields_dict.email_template.set_value(d.email_template || '');
-		d.setup_email_template();
-		
-		return d;
-	},
+	
 	cancelar_estado: function(frm) {
 
 	},
@@ -151,7 +134,12 @@ cur_frm.cscript.registro = {
 					frm.dashboard.add_comment(__('Preparado para pasar al estado "' + estado_siguiente + '". Pulse en "Acciones->' + estado_siguiente + '"'), 'blue', true);
 				}
 
-				this.imprimir_resguardo_titulo(frm);
+				frm.add_custom_button(__("Imprimir resguardo de título"),
+					function() {
+						this.imprimir_resguardo_titulo(frm);
+					}
+				);
+				
 
 				break;
 
@@ -197,21 +185,26 @@ cur_frm.cscript.registro = {
 				break;
 		}
 		
+		if (!helper.IsNullOrEmpty(frm.doc.referencia_boe)&&!helper.IsNullOrEmpty(frm.doc.importe)) {
+			frm.add_custom_button(__("Enviar correo expedición de duplicado"),
+				function() {
+					cur_frm.cscript.registro.enviar_email_expedicion_duplicado(frm);
+				}
+			);
+		}
 	},
 	acciones_flujo: function(frm) {
+		console.log("Estado: " + frm.doc.estado_num);
 		switch (frm.doc.estado_num) {
 			case 0:
 				//Pendiente
-				
 				break;
 			case 1:
 				//Solicitado
-				
+				this.imprimir_resguardo_titulo(frm);	
 				break;
-
 			case 2:
 				//Remision de expediente
-				
 				break;
 			case 3:
 				//Recepcion del titulo
@@ -219,22 +212,52 @@ cur_frm.cscript.registro = {
 				break;
 			case 5:
 				//Titulo retirado
-				
 				break;
-				
 		}
 	},
+	enviar_email_titulo_preparado: function(frm){
+		var d;	
+		var args = {
+			doc: frm.doc,
+			frm: frm,
+			subject: __(frm.meta.name) + ': ' + frm.docname,
+			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
+			attach_document_print: false,
+			message: "",
+			email_template: "1-Titulo preparado para recogida",
+			real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
+		}
+		d = new frappe.views.CommunicationComposer(args);
+		d.txt = "1"; //Para borrar el mensaje anterior guardado
+		d.dialog.fields_dict.email_template.set_value(d.email_template || '');
+				
+		return d;
+	},
+	enviar_email_expedicion_duplicado: function(frm){
+		var d;	
+		var args = {
+			doc: frm.doc,
+			frm: frm,
+			subject: __(frm.meta.name) + ': ' + frm.docname,
+			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
+			attach_document_print: false,
+			message: "",
+			email_template: "2-Expedicion de duplicado de titulo",
+			real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
+		}
+		d = new frappe.views.CommunicationComposer(args);
+		d.txt = "1"; //Para borrar el mensaje anterior guardado
+		d.dialog.fields_dict.email_template.set_value(d.email_template || '');
+				
+		return d;
+	},
 	imprimir_resguardo_titulo: function(frm) {
-		frm.add_custom_button(__("Imprimir resguardo de título"),
-			function() {
-				var format = "Resguardo de Título";
-				var with_letterhead = true;
-				var lang_code = "ES";
-				var printit = true;
-				var name_concat = "resguardo";
-				print.pdf(format, with_letterhead, lang_code, printit, name_concat);
-				//print.html(format, with_letterhead, lang_code, printit);
-			}
-		);
+		var format = "Resguardo de Título";
+		var with_letterhead = true;
+		var lang_code = "ES";
+		var printit = true;
+		var name_concat = "resguardo";
+		print.pdf(format, with_letterhead, lang_code, printit, name_concat);
+		//print.html(format, with_letterhead, lang_code, printit);	
 	}
 };

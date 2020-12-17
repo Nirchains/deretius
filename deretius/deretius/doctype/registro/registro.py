@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
+from frappe.utils import cstr, getdate, add_days, today, get_last_day, get_first_day, month_diff
 
 class Registro(Document):               
     def autoname(self):
@@ -17,18 +18,15 @@ class Registro(Document):
 
     def after_insert(self):
         self.update_default_registro()
-
-    def get_default_registro(self):
-        return frappe.db.get_singles_dict('Configuracion Deretius')
-        
+       
     def set_default_registro(self):
-        configuracion = self.get_default_registro()
+        configuracion = get_default_registro()
         self.libro = configuracion.libro_predeterminado
         self.pagina = configuracion.pagina_predeterminada
         self.n_orden = configuracion.n_orden_siguiente
 
     def update_default_registro(self):
-        configuracion = self.get_default_registro()
+        configuracion = get_default_registro()
 
         pagina_actual = frappe.get_doc("Pagina", configuracion.pagina_predeterminada)
         
@@ -53,3 +51,40 @@ class Registro(Document):
 
     def get_name(self, pagina, n_orden):
         return "{0}-{1}".format(pagina, n_orden)
+
+def get_default_registro():
+    return frappe.db.get_singles_dict('Configuracion Deretius')
+
+def comprobar_libro():
+    configuracion = get_default_registro()
+
+    fecha_inicio_curso = getdate(configuracion.fecha_inicio_curso)
+    hoy = getdate(today())
+
+    if fecha_inicio_curso == hoy:
+        libro_actual = frappe.get_doc("Libro", configuracion.libro_predeterminado)
+        if frappe.db.count("Libro", filters={"ordinal": int(libro_actual.ordinal) + 1 })==0:
+            libro_nuevo = frappe.new_doc("Libro")
+            libro_nuevo.ordinal = int(libro_actual.ordinal) + 1
+            libro_nuevo.curso_academico = "{0}/{1}".format(hoy.year, hoy.year+1)
+            libro_nuevo = libro_nuevo.insert()
+        else:
+            libro_nuevo = frappe.get_list("Libro", filters={"ordinal": int(libro_actual.ordinal) + 1 })[0]
+
+        if frappe.db.count("Pagina", filters={"libro": libro_nuevo.name, "n_pag": 1 })==0:
+            pagina = frappe.new_doc("Pagina")
+            pagina.libro = libro_nuevo.name
+            pagina.n_pag = 1
+            pagina = pagina.insert()
+        else:
+            pagina = frappe.get_list("Pagina", filters={"libro": libro_nuevo.name, "n_pag": 1 })[0]
+
+        frappe.db.set_value("Configuracion Deretius", "Configuracion Deretius", "libro_predeterminado", libro_nuevo.name)
+        frappe.db.set_value("Configuracion Deretius", "Configuracion Deretius", "pagina_predeterminada", pagina.name)
+        frappe.db.set_value("Configuracion Deretius", "Configuracion Deretius", "n_orden_siguiente", 1)
+        frappe.db.commit()
+    else:
+        print("no es hoy")
+
+
+    

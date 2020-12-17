@@ -9,6 +9,7 @@
   "sc_1",
   "n_orden_siguiente",
   "n_reg_pagina",
+  "fecha_inicio_curso",
   "ss_1",
   "documentacion",
   "ss_2",
@@ -21,6 +22,7 @@
    "in_list_view": 1,
    "label": "Libro predeterminado",
    "options": "Libro",
+   "permlevel": 1,
    "reqd": 1
   },
   {
@@ -29,6 +31,7 @@
    "in_list_view": 1,
    "label": "P\u00e1gina predeterminada",
    "options": "Pagina",
+   "permlevel": 1,
    "reqd": 1
   },
   {
@@ -37,6 +40,7 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "N\u00ba de orden siguiente",
+   "permlevel": 1,
    "reqd": 1
   },
   {
@@ -72,10 +76,16 @@
    "fieldname": "ss_2",
    "fieldtype": "Section Break",
    "label": "Plantilla de incidencias"
+  },
+  {
+   "description": "En esta fecha se crear\u00e1 de forma autom\u00e1tica un nuevo libro, que ser\u00e1 utilizado para los registros insertados a partir de esta fecha.",
+   "fieldname": "fecha_inicio_curso",
+   "fieldtype": "Date",
+   "label": "Fecha de inicio de curso acad\u00e9mico"
   }
  ],
  "issingle": 1,
- "modified": "2020-12-09 23:40:30.038213",
+ "modified": "2020-12-17 11:24:01.273952",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Configuracion Deretius",
@@ -87,29 +97,44 @@
    "email": 1,
    "print": 1,
    "read": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "print": 1,
-   "read": 1,
    "role": "Administrador Deretius",
    "share": 1,
    "write": 1
   },
   {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Registrador de titulos",
+   "share": 1
+  },
+  {
    "create": 1,
    "delete": 1,
    "email": 1,
    "print": 1,
    "read": 1,
-   "role": "Registrador de titulos",
+   "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "delete": 1,
+   "email": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "permlevel": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Administrador Deretius",
+   "share": 1
   }
  ],
  "quick_entry": 1,
