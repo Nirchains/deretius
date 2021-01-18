@@ -136,7 +136,7 @@ cur_frm.cscript.registro = {
 
 				frm.add_custom_button(__("Imprimir resguardo de título"),
 					function() {
-						this.imprimir_resguardo_titulo(frm);
+						cur_frm.cscript.registro.imprimir_resguardo_titulo(frm);
 					}
 				);
 				
