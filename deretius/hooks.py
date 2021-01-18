@@ -24,6 +24,8 @@ app_include_js = [
 
 fixtures = ["Print Format", "Workflow State", "Workflow", "Email Template"]
 
+error_report_email = "pedro@hispalisdigital.com"
+
 # include js, css files in header of web template
 # web_include_css = "/assets/deretius/css/deretius.css"
 # web_include_js = "/assets/deretius/js/deretius.js"

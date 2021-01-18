@@ -60,6 +60,7 @@
    "label": "Datos de registro"
   },
   {
+   "bold": 1,
    "fieldname": "estado",
    "fieldtype": "Select",
    "in_preview": 1,
@@ -358,7 +359,7 @@
    "label": "C\u00f3digo"
   }
  ],
- "modified": "2020-12-17 08:52:58.956990",
+ "modified": "2020-12-17 22:40:38.298560",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",
