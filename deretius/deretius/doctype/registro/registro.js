@@ -31,8 +31,8 @@ frappe.ui.form.on('Registro', {
 		var lang_code = "ES";
 		var printit = true;
 		var name_concat = "retirada";
-		//print.pdf(format, with_letterhead, lang_code, printit, name_concat);
-		print.html(format, with_letterhead, lang_code, printit);	
+		print.pdf(format, with_letterhead, lang_code, printit, name_concat);
+		//print.html(format, with_letterhead, lang_code, printit);	
 	},
 	before_workflow_action: function(frm) {
 		if (frm.selected_workflow_action == "Reiniciar estado") {
@@ -257,7 +257,7 @@ cur_frm.cscript.registro = {
 		var lang_code = "ES";
 		var printit = true;
 		var name_concat = "resguardo";
-		//print.pdf(format, with_letterhead, lang_code, printit, name_concat);
-		print.html(format, with_letterhead, lang_code, printit);	
+		print.pdf(format, with_letterhead, lang_code, printit, name_concat);
+		//print.html(format, with_letterhead, lang_code, printit);	
 	}
 };
