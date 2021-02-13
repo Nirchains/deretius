@@ -52,6 +52,22 @@ class Registro(Document):
     def get_name(self, pagina, n_orden):
         return "{0}-{1}".format(pagina, n_orden)
 
+    def comprobar_duplicidad(self):
+        msg = ""
+        if self.titulo and self.n_doc:
+            filters = dict(
+		        titulo = self.titulo,
+		        n_doc = self.n_doc,
+		        name = ('!=', self.name),
+                duplicado = self.duplicado
+            )
+            if frappe.db.count("Registro", filters=filters)>0:
+                name = frappe.db.get_value("Registro", filters={"titulo": self.titulo, "n_doc": self.n_doc}, fieldname="name")
+                msg = "Registro duplicado: <a href='desk#Form/Registro/{0}'>{0}</a>".format(name)
+
+        return msg
+        
+
 def get_default_registro():
     return frappe.db.get_singles_dict('Configuracion Deretius')
 

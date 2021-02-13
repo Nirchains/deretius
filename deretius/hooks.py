@@ -22,7 +22,7 @@ app_include_js = [
 	"/assets/js/custom.js"
 ]
 
-fixtures = ["Print Format", "Workflow State", "Workflow", "Email Template"]
+#fixtures = ["Print Format", "Workflow State", "Workflow", "Email Template"]
 
 error_report_email = "pedro@hispalisdigital.com"
 

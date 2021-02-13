@@ -47,6 +47,12 @@ frappe.ui.form.on('Registro', {
 	},
 	after_workflow_action: function(frm, cdt, cdn) {
 		cur_frm.cscript.registro.acciones_flujo(frm);
+	},
+	n_doc: function(frm) {
+		cur_frm.cscript.registro.comprobar_duplicidad(frm);
+	},
+	titulo: function(frm) {
+		cur_frm.cscript.registro.comprobar_duplicidad(frm);
 	}
 });
 
@@ -194,7 +200,7 @@ cur_frm.cscript.registro = {
 		}
 	},
 	acciones_flujo: function(frm) {
-		console.log("Estado: " + frm.doc.estado_num);
+		//console.log("Estado: " + frm.doc.estado_num);
 		switch (frm.doc.estado_num) {
 			case 0:
 				//Pendiente
@@ -216,6 +222,7 @@ cur_frm.cscript.registro = {
 		}
 	},
 	enviar_email_titulo_preparado: function(frm){
+		localStorage.removeItem(frm.doctype + frm.docname);
 		var d;	
 		var args = {
 			doc: frm.doc,
@@ -232,6 +239,17 @@ cur_frm.cscript.registro = {
 		d.dialog.fields_dict.email_template.set_value(d.email_template || '');
 				
 		return d;
+	},
+	comprobar_duplicidad: function(frm) {
+		frappe.call({
+			method: "comprobar_duplicidad",
+			doc: frm.doc,
+			callback: function(r){
+				if (r.message) {
+					frappe.msgprint("" + r.message + "");
+				}
+			}
+		});
 	},
 	enviar_email_expedicion_duplicado: function(frm){
 		var d;	

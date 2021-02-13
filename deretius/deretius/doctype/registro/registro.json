@@ -24,6 +24,8 @@
   "n_expediente_centro",
   "n_registro_nacional_titulos",
   "n_registro_universitario",
+  "expediente_cerrado",
+  "expediente_disociado",
   "sc_1_2",
   "fecha_solicitud",
   "fecha_abono_expedicion",
@@ -357,9 +359,25 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "C\u00f3digo"
+  },
+  {
+   "default": "0",
+   "fieldname": "expediente_cerrado",
+   "fieldtype": "Check",
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Expediente cerrado"
+  },
+  {
+   "default": "0",
+   "fieldname": "expediente_disociado",
+   "fieldtype": "Check",
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Expediente disociado"
   }
  ],
- "modified": "2020-12-17 22:40:38.298560",
+ "modified": "2021-02-10 15:53:11.549368",
  "modified_by": "Administrator",
  "module": "Deretius",
  "name": "Registro",

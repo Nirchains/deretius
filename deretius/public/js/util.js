@@ -67,8 +67,6 @@ $.extend(util, {
 					if(r.message) {
 						$.each(r.message, function(i, item) {
 							var d = frappe.model.add_child(frm.doc, "Incidencias", destin_table);
-							console.log(item);
-							console.log(d);
 							frappe.model.set_value(d.doctype, d.name, "incidencia", item.incidencia);
 						});
 					}
@@ -85,7 +83,6 @@ $.extend(util, {
 				},
 				callback: function(r) {
 					if(r.message) {
-						console.log(r.message);
 						$.each(r.message, function(i, item) {
 							var d = frappe.model.add_child(frm.doc, "Repositorio", destin_table);
 							frappe.model.set_value(d.doctype, d.name, "type", item.type);
