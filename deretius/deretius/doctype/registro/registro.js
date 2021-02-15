@@ -121,6 +121,11 @@ cur_frm.cscript.registro = {
 	},
 	control_de_estados: function(frm) {
 		var estado_actual, estado_siguiente;
+		frm.add_custom_button(__("Enviar correo"),
+			function() {
+				cur_frm.cscript.registro.enviar_email(frm);
+			}
+		);
 		switch (frm.doc.estado_num) {
 			case 0:
 				estado_actual = "Pendiente";
@@ -192,11 +197,6 @@ cur_frm.cscript.registro = {
 		}
 		
 		if (!helper.IsNullOrEmpty(frm.doc.referencia_boe)&&!helper.IsNullOrEmpty(frm.doc.importe)) {
-			frm.add_custom_button(__("Enviar correo"),
-				function() {
-					cur_frm.cscript.registro.enviar_email(frm);
-				}
-			);
 			frm.add_custom_button(__("Enviar correo expedición de duplicado"),
 				function() {
 					cur_frm.cscript.registro.enviar_email_expedicion_duplicado(frm);
