@@ -82,7 +82,7 @@ cur_frm.cscript.registro = {
         frm.set_value("pagina", "");
         frm.set_value("n_orden", "");
         frm.set_value("fecha_solicitud", frappe.datetime.get_today());
-        frm.set_value("fecha_abono_expedicion", frappe.datetime.get_today());
+        //frm.set_value("fecha_abono_expedicion", frappe.datetime.get_today());
         frm.set_value("fecha_remision_expediente", "");
         frm.set_value("fecha_recepcion_titulo", "");
 		frm.refresh_fields();
@@ -192,6 +192,11 @@ cur_frm.cscript.registro = {
 		}
 		
 		if (!helper.IsNullOrEmpty(frm.doc.referencia_boe)&&!helper.IsNullOrEmpty(frm.doc.importe)) {
+			frm.add_custom_button(__("Enviar correo"),
+				function() {
+					cur_frm.cscript.registro.enviar_email(frm);
+				}
+			);
 			frm.add_custom_button(__("Enviar correo expedición de duplicado"),
 				function() {
 					cur_frm.cscript.registro.enviar_email_expedicion_duplicado(frm);
@@ -221,12 +226,33 @@ cur_frm.cscript.registro = {
 				break;
 		}
 	},
+	enviar_email: function(frm){
+		localStorage.removeItem(frm.doctype + frm.docname);
+		var d;	
+		var args = {
+			doc: frm.doc,
+			frm: frm,
+			sender: "titulosderecho@us.es",
+			subject: __(frm.meta.name) + ': ' + frm.docname,
+			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
+			attach_document_print: false,
+			message: "",
+			real_name: frm.doc.real_name || frm.doc.contact_display || frm.doc.contact_name
+		}
+		d = new frappe.views.CommunicationComposer(args);
+		delete_saved_draft();
+		d.txt = "1"; //Para borrar el mensaje anterior guardado
+		d.dialog.fields_dict.email_template.set_value(d.email_template || '');
+				
+		return d;
+	},
 	enviar_email_titulo_preparado: function(frm){
 		localStorage.removeItem(frm.doctype + frm.docname);
 		var d;	
 		var args = {
 			doc: frm.doc,
 			frm: frm,
+			sender: "titulosderecho@us.es",
 			subject: __(frm.meta.name) + ': ' + frm.docname,
 			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
 			attach_document_print: false,
@@ -241,17 +267,7 @@ cur_frm.cscript.registro = {
 				
 		return d;
 	},
-	comprobar_duplicidad: function(frm) {
-		frappe.call({
-			method: "comprobar_duplicidad",
-			doc: frm.doc,
-			callback: function(r){
-				if (r.message) {
-					frappe.msgprint("" + r.message + "");
-				}
-			}
-		});
-	},
+
 	enviar_email_expedicion_duplicado: function(frm){
 		localStorage.removeItem(frm.doctype + frm.docname);
 		var d;	
@@ -259,6 +275,7 @@ cur_frm.cscript.registro = {
 			doc: frm.doc,
 			frm: frm,
 			subject: __(frm.meta.name) + ': ' + frm.docname,
+			sender: "titulosderecho@us.es",
 			recipients: frm.doc.email || frm.doc.email_id || frm.doc.contact_email,
 			attach_document_print: false,
 			message: "",
@@ -271,6 +288,19 @@ cur_frm.cscript.registro = {
 				
 		return d;
 	},
+
+	comprobar_duplicidad: function(frm) {
+		frappe.call({
+			method: "comprobar_duplicidad",
+			doc: frm.doc,
+			callback: function(r){
+				if (r.message && r.message.result) {
+					frappe.msgprint("" + r.message.msg + "");
+				}
+			}
+		});
+	},
+	
 	imprimir_resguardo_titulo: function(frm) {
 		var format = "Resguardo de Título";
 		var with_letterhead = true;
