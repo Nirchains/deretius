@@ -117,14 +117,17 @@ def get_communications(registros):
     reg = json.loads(registros)
     com_list = []
     
+    condition = " and subject like %s "
+    subject = "%{0}%".format("TITULO PREPARADO PARA RECOGIDA")
+    
     if reg:
         sql = """
             select name from `tabCommunication` 
             where
             reference_name in (%s) 
-             """  % (','.join(['%s'] * len(reg)))
-        
-        com_list = frappe.db.sql(sql, tuple(r["name"] for r in reg ), debug=False)   
+             """  % (",".join(["%s"] * len(reg)))
+                    
+        com_list = frappe.db.sql("{0} {1}".format(sql, condition), tuple(r["name"] for r in reg ) + tuple([subject]) , debug=True)   
         
     
     return tuple(v[0] for v in com_list)
