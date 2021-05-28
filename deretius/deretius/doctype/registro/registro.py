@@ -111,5 +111,20 @@ def comprobar_libro():
     else:
         print("no es hoy")
 
-
+@frappe.whitelist()
+def get_communications(registros):
+    import json
+    reg = json.loads(registros)
+    com_list = []
     
+    if reg:
+        sql = """
+            select name from `tabCommunication` 
+            where
+            reference_name in (%s) 
+             """  % (','.join(['%s'] * len(reg)))
+        
+        com_list = frappe.db.sql(sql, tuple(r["name"] for r in reg ), debug=False)   
+        
+    
+    return tuple(v[0] for v in com_list)
